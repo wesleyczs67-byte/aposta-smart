@@ -1,3 +1,7 @@
+/* ================================
+   APOSTASMART - ESTILO PRINCIPAL
+================================ */
+
 * {
   box-sizing: border-box;
   margin: 0;
@@ -5,199 +9,476 @@
 }
 
 body {
-  font-family: Arial, sans-serif;
+  font-family: Arial, Helvetica, sans-serif;
   background: #f3f4f6;
   color: #111827;
+  line-height: 1.5;
 }
 
-header {
-  background: #111827;
-  color: white;
-  padding: 30px 20px;
-}
+/* ================================
+   CONTAINER
+================================ */
 
 .container {
   width: min(1100px, 92%);
-  margin: auto;
+  margin: 0 auto;
 }
 
-header h1 {
-  font-size: 32px;
-  margin-bottom: 8px;
+/* ================================
+   CABEÇALHO
+================================ */
+
+.topo {
+  background: #111827;
+  color: white;
+  padding: 28px 0;
+  margin-bottom: 25px;
 }
 
-header p {
+.logo {
+  font-size: 30px;
+  font-weight: 800;
+  letter-spacing: -0.5px;
+}
+
+.subtitulo {
+  margin-top: 5px;
   color: #d1d5db;
-}
-
-main {
-  padding: 25px 0;
-}
-
-.card {
-  background: white;
-  padding: 22px;
-  margin-bottom: 20px;
-  border-radius: 14px;
-  box-shadow: 0 3px 12px rgba(0, 0, 0, 0.08);
-}
-
-.card h2 {
-  margin-bottom: 18px;
-}
-
-.filters {
-  display: grid;
-  grid-template-columns: 1fr 1fr auto;
-  gap: 15px;
-  align-items: end;
-}
-
-label {
-  display: block;
-  margin-bottom: 7px;
-  font-weight: bold;
-}
-
-input,
-select,
-button {
-  width: 100%;
-  padding: 12px;
-  border-radius: 8px;
-  border: 1px solid #d1d5db;
   font-size: 15px;
 }
 
-button {
-  background: #16a34a;
-  color: white;
+/* ================================
+   CARDS
+================================ */
+
+.card {
+  background: white;
+  border-radius: 16px;
+  padding: 25px;
+  margin-bottom: 22px;
+  box-shadow: 0 5px 20px rgba(0, 0, 0, 0.07);
+  border: 1px solid #e5e7eb;
+}
+
+.card h2 {
+  margin-bottom: 20px;
+  font-size: 22px;
+}
+
+/* ================================
+   FORMULÁRIO
+================================ */
+
+.form-grid {
+  display: grid;
+  grid-template-columns: 1fr 1fr auto;
+  gap: 18px;
+  align-items: end;
+}
+
+.campo {
+  display: flex;
+  flex-direction: column;
+  gap: 7px;
+}
+
+.campo label {
+  font-weight: 700;
+  font-size: 14px;
+  color: #374151;
+}
+
+input,
+select {
+  width: 100%;
+  height: 46px;
+  padding: 0 13px;
+  border: 1px solid #d1d5db;
+  border-radius: 10px;
+  background: white;
+  color: #111827;
+  font-size: 15px;
+  outline: none;
+}
+
+input:focus,
+select:focus {
+  border-color: #2563eb;
+  box-shadow: 0 0 0 3px rgba(37, 99, 235, 0.12);
+}
+
+/* ================================
+   BOTÕES
+================================ */
+
+.btn-principal {
+  height: 46px;
+  padding: 0 20px;
   border: none;
-  font-weight: bold;
+  border-radius: 10px;
+  background: #2563eb;
+  color: white;
+  font-size: 15px;
+  font-weight: 700;
+  cursor: pointer;
+  transition: 0.2s;
+}
+
+.btn-principal:hover {
+  background: #1d4ed8;
+  transform: translateY(-1px);
+}
+
+.match-card button {
+  margin-top: 15px;
+  padding: 10px 16px;
+  border: none;
+  border-radius: 9px;
+  background: #111827;
+  color: white;
+  font-weight: 700;
   cursor: pointer;
 }
 
-button:hover {
-  background: #15803d;
+.match-card button:hover {
+  background: #374151;
 }
 
-.hidden {
-  display: none;
-}
+/* ================================
+   TÍTULOS DE SEÇÃO
+================================ */
 
-.match {
-  border: 1px solid #e5e7eb;
-  padding: 16px;
-  border-radius: 10px;
-  margin-bottom: 12px;
+.section-title {
   display: flex;
   justify-content: space-between;
   align-items: center;
   gap: 15px;
+  margin-bottom: 20px;
 }
 
-.match button {
-  width: auto;
-  padding: 10px 16px;
+.section-title h2 {
+  margin-bottom: 0;
+}
+
+#status {
+  color: #6b7280;
+  font-size: 14px;
+}
+
+/* ================================
+   PARTIDAS
+================================ */
+
+.matches {
+  display: grid;
+  gap: 15px;
+}
+
+.match-card {
+  border: 1px solid #e5e7eb;
+  border-radius: 13px;
+  padding: 18px;
+  background: #fafafa;
+}
+
+.match-info {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: 10px;
+  text-align: center;
+  font-size: 17px;
+  font-weight: 700;
+}
+
+.match-info strong {
+  color: #2563eb;
+}
+
+.match-date {
+  margin-top: 8px;
+  text-align: center;
+  color: #6b7280;
+  font-size: 13px;
+}
+
+/* ================================
+   ESTADOS
+================================ */
+
+.empty {
+  text-align: center;
+  padding: 35px 20px;
+  color: #6b7280;
+}
+
+.empty-icon {
+  font-size: 42px;
+  margin-bottom: 10px;
+}
+
+.empty h3 {
+  color: #374151;
+  margin-bottom: 7px;
+}
+
+.loading {
+  text-align: center;
+  padding: 30px;
+  color: #2563eb;
+  font-weight: 700;
+}
+
+.error {
+  padding: 15px;
+  border-radius: 10px;
+  background: #fee2e2;
+  color: #991b1b;
+  border: 1px solid #fecaca;
+}
+
+/* ================================
+   ANÁLISE
+================================ */
+
+.analysis-section {
+  min-height: 150px;
+}
+
+.analysis-card {
+  width: 100%;
+}
+
+.analysis-card h2 {
+  margin-bottom: 10px;
+}
+
+.analysis-card h3 {
+  margin-bottom: 18px;
+  text-align: center;
 }
 
 .probabilities {
   display: grid;
   grid-template-columns: repeat(3, 1fr);
-  gap: 15px;
+  gap: 12px;
   margin: 20px 0;
 }
 
-.probabilities div,
-.bankroll-grid div {
-  background: #f9fafb;
-  border-radius: 10px;
+.probabilities > div {
   padding: 18px;
+  border-radius: 12px;
+  background: #f3f4f6;
   text-align: center;
 }
 
-.probabilities span,
-.bankroll-grid span {
-  display: block;
-  color: #6b7280;
-  margin-bottom: 8px;
-}
-
 .probabilities strong {
-  font-size: 28px;
+  display: block;
+  margin-bottom: 5px;
+  color: #374151;
 }
 
-#odds,
-#statistics {
-  margin: 15px 0 25px;
+.probabilities span {
+  font-size: 24px;
+  font-weight: 800;
+  color: #2563eb;
 }
 
-table {
-  width: 100%;
-  border-collapse: collapse;
+.odds {
+  display: grid;
+  grid-template-columns: repeat(3, 1fr);
+  gap: 12px;
+  margin-top: 15px;
 }
 
-th,
-td {
-  border-bottom: 1px solid #e5e7eb;
-  padding: 12px;
-  text-align: left;
-}
-
-th {
+.odds p {
   background: #f9fafb;
+  border: 1px solid #e5e7eb;
+  border-radius: 10px;
+  padding: 13px;
+  text-align: center;
+  font-weight: 700;
+}
+
+/* ================================
+   CALCULADORA
+================================ */
+
+.descricao {
+  color: #6b7280;
+  margin-bottom: 20px;
 }
 
 .calculator {
   display: grid;
   grid-template-columns: 1fr 1fr auto;
-  gap: 15px;
+  gap: 18px;
   align-items: end;
 }
 
-.calculator button {
-  width: auto;
+.resultado-calculo {
+  margin-top: 20px;
 }
 
-#calculatorResult {
-  margin-top: 15px;
+.calculo-box {
+  padding: 20px;
+  border-radius: 13px;
+  background: #f9fafb;
+  border: 1px solid #e5e7eb;
+}
+
+.calculo-box h3 {
+  margin-bottom: 15px;
+}
+
+.calculo-linha {
+  display: flex;
+  justify-content: space-between;
+  gap: 15px;
+  padding: 10px 0;
+  border-bottom: 1px solid #e5e7eb;
+}
+
+.calculo-linha:last-of-type {
+  border-bottom: none;
+}
+
+.destaque {
   font-size: 18px;
-  font-weight: bold;
+  font-weight: 700;
 }
 
-.bankroll-grid {
+.classificacao {
+  margin-top: 15px;
+  font-weight: 700;
+}
+
+.positivo {
+  color: #15803d;
+}
+
+.negativo {
+  color: #b91c1c;
+}
+
+/* ================================
+   BANCA
+================================ */
+
+.banca-grid {
   display: grid;
   grid-template-columns: repeat(4, 1fr);
   gap: 15px;
 }
 
-.bankroll-grid strong {
-  font-size: 22px;
+.banca-item {
+  background: #f9fafb;
+  border: 1px solid #e5e7eb;
+  border-radius: 12px;
+  padding: 18px;
+  text-align: center;
 }
+
+.banca-item span {
+  display: block;
+  color: #6b7280;
+  font-size: 13px;
+  margin-bottom: 6px;
+}
+
+.banca-item strong {
+  font-size: 20px;
+}
+
+/* ================================
+   AVISO
+================================ */
+
+.aviso {
+  margin-bottom: 25px;
+  padding: 20px;
+  border-radius: 13px;
+  background: #fff7ed;
+  border: 1px solid #fed7aa;
+  color: #9a3412;
+}
+
+.aviso strong {
+  display: block;
+  margin-bottom: 5px;
+}
+
+/* ================================
+   RODAPÉ
+================================ */
 
 footer {
+  margin-top: 30px;
+  padding: 25px 0;
+  background: #111827;
+  color: #9ca3af;
   text-align: center;
-  padding: 30px 15px;
-  color: #6b7280;
 }
 
-@media (max-width: 700px) {
-  .filters,
+footer p + p {
+  margin-top: 5px;
+  font-size: 13px;
+}
+
+/* ================================
+   RESPONSIVO - CELULAR
+================================ */
+
+@media (max-width: 800px) {
+
+  .form-grid {
+    grid-template-columns: 1fr;
+  }
+
   .calculator {
     grid-template-columns: 1fr;
   }
 
-  .probabilities,
-  .bankroll-grid {
+  .banca-grid {
     grid-template-columns: 1fr 1fr;
   }
 
-  .match {
-    flex-direction: column;
-    align-items: stretch;
+  .probabilities {
+    grid-template-columns: 1fr;
   }
 
-  .match button {
-    width: 100%;
+  .odds {
+    grid-template-columns: 1fr;
+  }
+
+  .section-title {
+    flex-direction: column;
+    align-items: flex-start;
+  }
+
+  .match-info {
+    flex-direction: column;
+    gap: 5px;
+  }
+
+  .logo {
+    font-size: 25px;
+  }
+}
+
+@media (max-width: 500px) {
+
+  .card {
+    padding: 18px;
+    border-radius: 12px;
+  }
+
+  .banca-grid {
+    grid-template-columns: 1fr;
+  }
+
+  .calculo-linha {
+    flex-direction: column;
+    gap: 3px;
   }
 }
