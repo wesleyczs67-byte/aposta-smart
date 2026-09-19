@@ -1,10 +1,10 @@
 {
-  "name": "aposta-smart",
+  "name": "aposta-inteligente",
   "version": "1.0.0",
-  "description": "Plataforma de análise estatística esportiva",
-  "main": "server.js",
+  "description": "Plataforma de análise estatística",
+  "main": "servidor.js",
   "scripts": {
-    "start": "node server.js"
+    "start": "node servidor.js"
   },
   "engines": {
     "node": ">=18"
