@@ -1,274 +1,168 @@
-const $ = (id) => document.getElementById(id);
 
-const dateInput = $("date");
-const leagueInput = $("league");
-const searchButton = $("search");
-const gamesContainer = $("games");
-const message = $("message");
+const form = document.getElementById("searchForm");
+const dateInput = document.getElementById("date");
+const leagueInput = document.getElementById("league");
+const matchesContainer = document.getElementById("matches");
 
-function todayISO() {
-  const d = new Date();
-  const offset = d.getTimezoneOffset();
-  return new Date(d.getTime() - offset * 60000)
-    .toISOString()
-    .slice(0, 10);
+const analysisBox = document.getElementById("analysis");
+
+function formatDate(date) {
+  return date.toISOString().split("T")[0];
 }
 
-dateInput.value = todayISO();
+const today = new Date();
+dateInput.value = formatDate(today);
 
-function showMessage(text, type = "") {
-  message.className = type;
-  message.textContent = text;
-}
+form.addEventListener("submit", async (event) => {
+  event.preventDefault();
 
-function money(value) {
-  return Number(value || 0).toLocaleString("pt-BR", {
-    style: "currency",
-    currency: "BRL"
-  });
-}
-
-function percent(value) {
-  return `${Number(value || 0).toFixed(1)}%`;
-}
-
-function renderGames(games) {
-  if (!games || games.length === 0) {
-    gamesContainer.innerHTML = `
-      <div class="card">
-        <p>Nenhum jogo encontrado para os filtros selecionados.</p>
-      </div>
-    `;
-    return;
-  }
-
-  gamesContainer.innerHTML = games.map(game => `
-    <div class="game">
-      <div class="game-header">
-        <div>
-          <div class="teams">
-            ${game.teams.home.name}
-            <span> x </span>
-            ${game.teams.away.name}
-          </div>
-
-          <div class="league">
-            ${game.league.name} — ${game.league.country}
-          </div>
-        </div>
-
-        <button onclick="analyzeGame(${game.fixture.id})">
-          Analisar
-        </button>
-      </div>
-
-      <div class="league">
-        ${new Date(game.fixture.date).toLocaleString("pt-BR")}
-      </div>
+  matchesContainer.innerHTML = `
+    <div class="loading">
+      Buscando partidas reais...
     </div>
-  `).join("");
-}
-
-async function loadGames() {
-  showMessage("Buscando jogos...", "loading");
-  gamesContainer.innerHTML = "";
+  `;
 
   try {
     const date = dateInput.value;
     const league = leagueInput.value;
 
-    let url = `/api/fixtures?date=${date}`;
+    const response = await fetch(
+      `/api/fixtures?date=${date}&league=${league}`
+    );
 
-    if (league) {
-      url += `&league=${league}`;
-    }
-
-    const response = await fetch(url);
     const data = await response.json();
 
     if (!response.ok) {
-      throw new Error(data.error || "Erro ao buscar jogos.");
+      throw new Error(data.error || "Erro ao buscar partidas.");
     }
 
-    showMessage("");
-    renderGames(data.response || []);
+    if (!data.response || data.response.length === 0) {
+      matchesContainer.innerHTML = `
+        <div class="empty">
+          Nenhuma partida encontrada para esta data.
+        </div>
+      `;
+      return;
+    }
+
+    matchesContainer.innerHTML = "";
+
+    data.response.forEach((item) => {
+      const fixture = item.fixture;
+      const teams = item.teams;
+
+      const card = document.createElement("div");
+
+      card.className = "match-card";
+
+      card.innerHTML = `
+        <div class="match-info">
+          <span>${teams.home.name}</span>
+          <strong> x </strong>
+          <span>${teams.away.name}</span>
+        </div>
+
+        <div class="match-date">
+          ${new Date(fixture.date).toLocaleString("pt-BR")}
+        </div>
+
+        <button onclick="analisarPartida(${fixture.id})">
+          📊 Analisar partida
+        </button>
+      `;
+
+      matchesContainer.appendChild(card);
+    });
 
   } catch (error) {
-    showMessage(error.message, "error");
+    matchesContainer.innerHTML = `
+      <div class="error">
+        Erro: ${error.message}
+      </div>
+    `;
   }
-}
+});
 
-async function analyzeGame(fixtureId) {
-  showMessage("Calculando análise...", "loading");
+async function analisarPartida(fixtureId) {
+  analysisBox.innerHTML = `
+    <div class="loading">
+      Analisando partida...
+    </div>
+  `;
 
   try {
     const response = await fetch(`/api/analysis/${fixtureId}`);
+
     const data = await response.json();
 
     if (!response.ok) {
-      throw new Error(data.error || "Erro ao analisar partida.");
+      throw new Error(data.error || "Erro na análise.");
     }
 
-    const game = data.fixture;
+    const prediction = data.prediction;
 
-    const analysisHTML = `
-      <div class="card">
-        <h2>
-          ${game.teams.home.name} x ${game.teams.away.name}
-        </h2>
+    analysisBox.innerHTML = `
+      <div class="analysis-card">
 
-        <p class="league">
-          ${game.league.name} — ${game.league.country}
-        </p>
+        <h2>📊 Análise da partida</h2>
 
-        <div class="analysis">
+        <h3>
+          ${prediction.teams.home.name}
+          x
+          ${prediction.teams.away.name}
+        </h3>
 
-          <div class="stat">
-            <strong>${percent(data.predictions.home)}</strong>
-            <span>Vitória ${game.teams.home.name}</span>
+        <div class="probabilities">
+
+          <div>
+            <strong>Casa</strong>
+            <span>${prediction.percent.home || "0%"}</span>
           </div>
 
-          <div class="stat">
-            <strong>${percent(data.predictions.draw)}</strong>
-            <span>Empate</span>
+          <div>
+            <strong>Empate</strong>
+            <span>${prediction.percent.draw || "0%"}</span>
           </div>
 
-          <div class="stat">
-            <strong>${percent(data.predictions.away)}</strong>
-            <span>Vitória ${game.teams.away.name}</span>
+          <div>
+            <strong>Fora</strong>
+            <span>${prediction.percent.away || "0%"}</span>
           </div>
 
         </div>
 
-        <h3 style="margin-top:20px;">
-          Odds e valor esperado
-        </h3>
+        <p>
+          <strong>Palpite da API:</strong>
+          ${prediction.predictions?.winner?.name || "Não disponível"}
+        </p>
 
-        ${renderOdds(data.odds, data.predictions)}
+        <h3>💰 Odds</h3>
 
-        <h3 style="margin-top:20px;">
-          Estatísticas
-        </h3>
+        ${
+          data.odds
+            ? `
+              <div class="odds">
+                <p>Casa: ${data.odds.home || "N/D"}</p>
+                <p>Empate: ${data.odds.draw || "N/D"}</p>
+                <p>Fora: ${data.odds.away || "N/D"}</p>
+              </div>
+            `
+            : `<p>Odds não disponíveis.</p>`
+        }
 
-        ${renderStats(data.statistics)}
       </div>
     `;
 
-    gamesContainer.insertAdjacentHTML(
-      "afterbegin",
-      analysisHTML
-    );
-
-    showMessage("");
+    analysisBox.scrollIntoView({
+      behavior: "smooth"
+    });
 
   } catch (error) {
-    showMessage(error.message, "error");
-  }
-}
 
-function renderOdds(odds, predictions) {
-  if (!odds) {
-    return `
-      <p style="margin-top:10px;">
-        Odds não disponíveis para esta partida.
-      </p>
-    `;
-  }
-
-  const rows = [];
-
-  if (odds.home) {
-    rows.push(createOddRow(
-      "Casa",
-      odds.home,
-      predictions.home
-    ));
-  }
-
-  if (odds.draw) {
-    rows.push(createOddRow(
-      "Empate",
-      odds.draw,
-      predictions.draw
-    ));
-  }
-
-  if (odds.away) {
-    rows.push(createOddRow(
-      "Fora",
-      odds.away,
-      predictions.away
-    ));
-  }
-
-  return `
-    <table>
-      <thead>
-        <tr>
-          <th>Mercado</th>
-          <th>Odd</th>
-          <th>Probabilidade</th>
-          <th>EV</th>
-        </tr>
-      </thead>
-
-      <tbody>
-        ${rows.join("")}
-      </tbody>
-    </table>
-  `;
-}
-
-function createOddRow(name, odd, probability) {
-  const ev = ((Number(probability) / 100) * Number(odd) - 1) * 100;
-
-  const className =
-    ev >= 0
-      ? "value-positive"
-      : "value-negative";
-
-  return `
-    <tr>
-      <td>${name}</td>
-      <td>${Number(odd).toFixed(2)}</td>
-      <td>${percent(probability)}</td>
-      <td class="${className}">
-        ${ev.toFixed(2)}%
-      </td>
-    </tr>
-  `;
-}
-
-function renderStats(statistics) {
-  if (!statistics || statistics.length === 0) {
-    return `
-      <p>
-        Estatísticas detalhadas não disponíveis.
-      </p>
-    `;
-  }
-
-  return statistics.map(team => `
-    <div style="margin-top:15px;">
-      <strong>${team.team.name}</strong>
-
-      <div class="analysis">
-
-        ${team.statistics
-          .slice(0, 6)
-          .map(stat => `
-            <div class="stat">
-              <strong>${stat.value ?? "-"}</strong>
-              <span>${stat.type}</span>
-            </div>
-          `)
-          .join("")}
-
+    analysisBox.innerHTML = `
+      <div class="error">
+        Erro na análise: ${error.message}
       </div>
-    </div>
-  `).join("");
+    `;
+  }
 }
-
-searchButton.addEventListener("click", loadGames);
-
-loadGames();
