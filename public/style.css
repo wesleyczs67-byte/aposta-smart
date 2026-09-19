@@ -1,0 +1,203 @@
+* {
+  box-sizing: border-box;
+  margin: 0;
+  padding: 0;
+}
+
+body {
+  font-family: Arial, sans-serif;
+  background: #f3f4f6;
+  color: #111827;
+}
+
+header {
+  background: #111827;
+  color: white;
+  padding: 30px 20px;
+}
+
+.container {
+  width: min(1100px, 92%);
+  margin: auto;
+}
+
+header h1 {
+  font-size: 32px;
+  margin-bottom: 8px;
+}
+
+header p {
+  color: #d1d5db;
+}
+
+main {
+  padding: 25px 0;
+}
+
+.card {
+  background: white;
+  padding: 22px;
+  margin-bottom: 20px;
+  border-radius: 14px;
+  box-shadow: 0 3px 12px rgba(0, 0, 0, 0.08);
+}
+
+.card h2 {
+  margin-bottom: 18px;
+}
+
+.filters {
+  display: grid;
+  grid-template-columns: 1fr 1fr auto;
+  gap: 15px;
+  align-items: end;
+}
+
+label {
+  display: block;
+  margin-bottom: 7px;
+  font-weight: bold;
+}
+
+input,
+select,
+button {
+  width: 100%;
+  padding: 12px;
+  border-radius: 8px;
+  border: 1px solid #d1d5db;
+  font-size: 15px;
+}
+
+button {
+  background: #16a34a;
+  color: white;
+  border: none;
+  font-weight: bold;
+  cursor: pointer;
+}
+
+button:hover {
+  background: #15803d;
+}
+
+.hidden {
+  display: none;
+}
+
+.match {
+  border: 1px solid #e5e7eb;
+  padding: 16px;
+  border-radius: 10px;
+  margin-bottom: 12px;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  gap: 15px;
+}
+
+.match button {
+  width: auto;
+  padding: 10px 16px;
+}
+
+.probabilities {
+  display: grid;
+  grid-template-columns: repeat(3, 1fr);
+  gap: 15px;
+  margin: 20px 0;
+}
+
+.probabilities div,
+.bankroll-grid div {
+  background: #f9fafb;
+  border-radius: 10px;
+  padding: 18px;
+  text-align: center;
+}
+
+.probabilities span,
+.bankroll-grid span {
+  display: block;
+  color: #6b7280;
+  margin-bottom: 8px;
+}
+
+.probabilities strong {
+  font-size: 28px;
+}
+
+#odds,
+#statistics {
+  margin: 15px 0 25px;
+}
+
+table {
+  width: 100%;
+  border-collapse: collapse;
+}
+
+th,
+td {
+  border-bottom: 1px solid #e5e7eb;
+  padding: 12px;
+  text-align: left;
+}
+
+th {
+  background: #f9fafb;
+}
+
+.calculator {
+  display: grid;
+  grid-template-columns: 1fr 1fr auto;
+  gap: 15px;
+  align-items: end;
+}
+
+.calculator button {
+  width: auto;
+}
+
+#calculatorResult {
+  margin-top: 15px;
+  font-size: 18px;
+  font-weight: bold;
+}
+
+.bankroll-grid {
+  display: grid;
+  grid-template-columns: repeat(4, 1fr);
+  gap: 15px;
+}
+
+.bankroll-grid strong {
+  font-size: 22px;
+}
+
+footer {
+  text-align: center;
+  padding: 30px 15px;
+  color: #6b7280;
+}
+
+@media (max-width: 700px) {
+  .filters,
+  .calculator {
+    grid-template-columns: 1fr;
+  }
+
+  .probabilities,
+  .bankroll-grid {
+    grid-template-columns: 1fr 1fr;
+  }
+
+  .match {
+    flex-direction: column;
+    align-items: stretch;
+  }
+
+  .match button {
+    width: 100%;
+  }
+}
