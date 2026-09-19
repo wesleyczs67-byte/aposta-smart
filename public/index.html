@@ -1,60 +1,122 @@
-
 <!DOCTYPE html>
 <html lang="pt-BR">
+
 <head>
   <meta charset="UTF-8">
-  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+  <meta
+    name="viewport"
+    content="width=device-width, initial-scale=1.0"
+  >
 
   <title>ApostaSmart</title>
 
-  <link rel="stylesheet" href="/style.css">
+  <link
+    rel="stylesheet"
+    href="/style.css"
+  >
 </head>
 
 <body>
 
   <header>
-    <h1>⚽ ApostaSmart</h1>
-    <p>Análise estatística para apostas esportivas</p>
+    <div class="container">
+
+      <h1>⚽ ApostaSmart</h1>
+
+      <p>
+        Análise estatística para apostas esportivas
+      </p>
+
+    </div>
   </header>
+
 
   <main class="container">
 
+
+    <!-- BUSCA DE PARTIDAS -->
     <section class="card">
+
       <h2>🔎 Buscar partidas</h2>
 
-      <div class="filters">
+      <form id="searchForm">
 
-        <input
-          type="date"
-          id="date"
-        >
+        <div class="filters">
 
-        <select id="league">
-          <option value="">Todas as ligas</option>
-          <option value="71">Brasileirão</option>
-          <option value="39">Premier League</option>
-          <option value="140">La Liga</option>
-          <option value="135">Serie A</option>
-        </select>
+          <div class="field">
 
-        <button id="searchBtn">
-          Buscar partidas
-        </button>
+            <label for="date">
+              Data
+            </label>
 
-      </div>
+            <input
+              type="date"
+              id="date"
+              required
+            >
 
-      <div id="message"></div>
+          </div>
+
+
+          <div class="field">
+
+            <label for="league">
+              Campeonato
+            </label>
+
+            <select id="league">
+
+              <option value="71">
+                🇧🇷 Brasileirão
+              </option>
+
+              <option value="39">
+                🏴 Premier League
+              </option>
+
+              <option value="140">
+                🇪🇸 La Liga
+              </option>
+
+              <option value="135">
+                🇮🇹 Serie A
+              </option>
+
+            </select>
+
+          </div>
+
+
+          <div class="field button-field">
+
+            <button
+              type="submit"
+              class="btn"
+            >
+              🔎 Buscar partidas
+            </button>
+
+          </div>
+
+        </div>
+
+      </form>
+
     </section>
 
 
+
+    <!-- PARTIDAS -->
     <section class="card">
 
-      <h2>⚽ Partidas</h2>
+      <h2>⚽ Partidas encontradas</h2>
 
-      <div id="matches" class="matches">
+      <div id="matches">
 
-        <div class="loading">
-          Escolha uma data e clique em "Buscar partidas".
+        <div class="empty">
+          Escolha a data e o campeonato
+          para buscar partidas.
         </div>
 
       </div>
@@ -62,14 +124,18 @@
     </section>
 
 
+
+    <!-- ANÁLISE -->
     <section class="card">
 
-      <h2>📊 Análise da partida</h2>
+      <h2>📊 Análise</h2>
 
       <div id="analysis">
 
-        <div class="loading">
-          Selecione uma partida para ver a análise.
+        <div class="empty">
+          Clique em
+          <strong>"Analisar partida"</strong>
+          para ver as estatísticas.
         </div>
 
       </div>
@@ -77,84 +143,52 @@
     </section>
 
 
-    <section class="card">
 
-      <h2>💰 Calculadora de aposta</h2>
+    <!-- AVISO -->
+    <section class="card notice">
 
-      <div class="filters">
+      <h3>ℹ️ Sobre as análises</h3>
 
-        <input
-          type="number"
-          id="bankroll"
-          placeholder="Banca"
-          value="105"
-          step="0.01"
-        >
+      <p>
+        As probabilidades apresentadas são estimativas
+        baseadas nos dados disponíveis pela fonte
+        estatística utilizada pelo sistema.
+      </p>
 
-        <input
-          type="number"
-          id="odd"
-          placeholder="Odd"
-          step="0.01"
-        >
-
-        <input
-          type="number"
-          id="probability"
-          placeholder="Probabilidade (%)"
-          step="0.1"
-        >
-
-        <button id="calculateBtn">
-          Calcular
-        </button>
-
-      </div>
-
-      <div id="calculatorResult"></div>
+      <p>
+        Nenhuma análise garante resultado ou lucro.
+        Utilize as informações apenas como apoio à
+        sua própria decisão.
+      </p>
 
     </section>
 
-
-    <section class="card">
-
-      <h2>💵 Minha banca</h2>
-
-      <div class="stats">
-
-        <div class="stat">
-          <span>Banca inicial</span>
-          <strong>R$ 40,00</strong>
-        </div>
-
-        <div class="stat">
-          <span>Banca atual</span>
-          <strong>R$ 105,00</strong>
-        </div>
-
-        <div class="stat">
-          <span>Lucro</span>
-          <strong>R$ 65,00</strong>
-        </div>
-
-        <div class="stat">
-          <span>Crescimento</span>
-          <strong>162,50%</strong>
-        </div>
-
-      </div>
-
-    </section>
 
   </main>
 
 
+
   <footer>
-    ApostaSmart © 2026
+
+    <div class="container">
+
+      <p>
+        ApostaSmart © 2026
+      </p>
+
+      <p>
+        Plataforma de análise estatística esportiva
+      </p>
+
+    </div>
+
   </footer>
 
 
+
+  <!-- JAVASCRIPT -->
   <script src="/app.js"></script>
 
 </body>
+
 </html>
