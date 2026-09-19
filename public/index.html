@@ -1,128 +1,111 @@
+
 <!DOCTYPE html>
 <html lang="pt-BR">
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
+
   <title>ApostaSmart</title>
+
   <link rel="stylesheet" href="/style.css">
 </head>
 
 <body>
 
   <header>
-    <div class="container">
-      <h1>⚽ ApostaSmart</h1>
-      <p>Análise estatística para apostas esportivas</p>
-    </div>
+    <h1>⚽ ApostaSmart</h1>
+    <p>Análise estatística para apostas esportivas</p>
   </header>
 
   <main class="container">
 
     <section class="card">
-      <h2>Buscar partidas</h2>
+      <h2>🔎 Buscar partidas</h2>
 
       <div class="filters">
 
-        <div>
-          <label for="date">Data</label>
-          <input type="date" id="date">
-        </div>
+        <input
+          type="date"
+          id="date"
+        >
 
-        <div>
-          <label for="league">Campeonato</label>
-          <select id="league">
-            <option value="">Todos</option>
-            <option value="71">Brasileirão</option>
-            <option value="39">Premier League</option>
-            <option value="140">La Liga</option>
-            <option value="135">Serie A</option>
-          </select>
-        </div>
+        <select id="league">
+          <option value="">Todas as ligas</option>
+          <option value="71">Brasileirão</option>
+          <option value="39">Premier League</option>
+          <option value="140">La Liga</option>
+          <option value="135">Serie A</option>
+        </select>
 
-        <button onclick="loadFixtures()">
-          Buscar jogos
+        <button id="searchBtn">
+          Buscar partidas
         </button>
 
       </div>
+
+      <div id="message"></div>
     </section>
+
 
     <section class="card">
-      <h2>Partidas disponíveis</h2>
 
-      <div id="loading" class="hidden">
-        Carregando partidas...
+      <h2>⚽ Partidas</h2>
+
+      <div id="matches" class="matches">
+
+        <div class="loading">
+          Escolha uma data e clique em "Buscar partidas".
+        </div>
+
       </div>
 
-      <div id="matches">
-        <p>Escolha uma data e clique em "Buscar jogos".</p>
-      </div>
     </section>
 
-    <section id="analysis" class="card hidden">
+
+    <section class="card">
 
       <h2>📊 Análise da partida</h2>
 
-      <div id="matchTitle"></div>
+      <div id="analysis">
 
-      <div class="probabilities">
-
-        <div>
-          <span>Casa</span>
-          <strong id="homeProbability">-</strong>
+        <div class="loading">
+          Selecione uma partida para ver a análise.
         </div>
 
-        <div>
-          <span>Empate</span>
-          <strong id="drawProbability">-</strong>
-        </div>
-
-        <div>
-          <span>Fora</span>
-          <strong id="awayProbability">-</strong>
-        </div>
-
-      </div>
-
-      <h3>Odds e valor esperado</h3>
-
-      <div id="odds">
-        Carregando...
-      </div>
-
-      <h3>Estatísticas</h3>
-
-      <div id="statistics">
-        Carregando...
       </div>
 
     </section>
 
+
     <section class="card">
 
-      <h2>🧮 Calculadora de valor esperado</h2>
+      <h2>💰 Calculadora de aposta</h2>
 
-      <div class="calculator">
+      <div class="filters">
 
-        <div>
-          <label>Probabilidade (%)</label>
-          <input
-            type="number"
-            id="probability"
-            placeholder="Ex.: 60"
-          >
-        </div>
+        <input
+          type="number"
+          id="bankroll"
+          placeholder="Banca"
+          value="105"
+          step="0.01"
+        >
 
-        <div>
-          <label>Odd</label>
-          <input
-            type="number"
-            id="odd"
-            step="0.01"
-            placeholder="Ex.: 2.00"
-          >
-        </div>
+        <input
+          type="number"
+          id="odd"
+          placeholder="Odd"
+          step="0.01"
+        >
 
-        <button onclick="calculateEV()">
+        <input
+          type="number"
+          id="probability"
+          placeholder="Probabilidade (%)"
+          step="0.1"
+        >
+
+        <button id="calculateBtn">
           Calcular
         </button>
 
@@ -132,28 +115,29 @@
 
     </section>
 
-    <section class="card bankroll">
 
-      <h2>💰 Banca</h2>
+    <section class="card">
 
-      <div class="bankroll-grid">
+      <h2>💵 Minha banca</h2>
 
-        <div>
+      <div class="stats">
+
+        <div class="stat">
           <span>Banca inicial</span>
           <strong>R$ 40,00</strong>
         </div>
 
-        <div>
+        <div class="stat">
           <span>Banca atual</span>
           <strong>R$ 105,00</strong>
         </div>
 
-        <div>
+        <div class="stat">
           <span>Lucro</span>
           <strong>R$ 65,00</strong>
         </div>
 
-        <div>
+        <div class="stat">
           <span>Crescimento</span>
           <strong>162,50%</strong>
         </div>
@@ -164,10 +148,11 @@
 
   </main>
 
+
   <footer>
-    <p>ApostaSmart © 2026</p>
-    <p>Análises são estimativas e não garantem resultados.</p>
+    ApostaSmart © 2026
   </footer>
+
 
   <script src="/app.js"></script>
 
