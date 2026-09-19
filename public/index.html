@@ -1,6 +1,5 @@
 <!DOCTYPE html>
 <html lang="pt-BR">
-
 <head>
   <meta charset="UTF-8">
 
@@ -9,22 +8,27 @@
     content="width=device-width, initial-scale=1.0"
   >
 
-  <title>ApostaSmart</title>
-
-  <link
-    rel="stylesheet"
-    href="/style.css"
+  <meta
+    name="description"
+    content="ApostaSmart - análise estatística de partidas esportivas"
   >
+
+  <title>ApostaSmart | Análise Esportiva</title>
+
+  <link rel="stylesheet" href="/style.css">
 </head>
 
 <body>
 
-  <header>
+  <!-- CABEÇALHO -->
+  <header class="topo">
     <div class="container">
 
-      <h1>⚽ ApostaSmart</h1>
+      <div class="logo">
+        ⚽ ApostaSmart
+      </div>
 
-      <p>
+      <p class="subtitulo">
         Análise estatística para apostas esportivas
       </p>
 
@@ -32,8 +36,8 @@
   </header>
 
 
+  <!-- CONTEÚDO PRINCIPAL -->
   <main class="container">
-
 
     <!-- BUSCA DE PARTIDAS -->
     <section class="card">
@@ -42,10 +46,9 @@
 
       <form id="searchForm">
 
-        <div class="filters">
+        <div class="form-grid">
 
-          <div class="field">
-
+          <div class="campo">
             <label for="date">
               Data
             </label>
@@ -53,22 +56,24 @@
             <input
               type="date"
               id="date"
+              name="date"
               required
             >
-
           </div>
 
 
-          <div class="field">
-
+          <div class="campo">
             <label for="league">
               Campeonato
             </label>
 
-            <select id="league">
+            <select
+              id="league"
+              name="league"
+            >
 
               <option value="71">
-                🇧🇷 Brasileirão
+                🇧🇷 Brasileirão Série A
               </option>
 
               <option value="39">
@@ -84,17 +89,16 @@
               </option>
 
             </select>
-
           </div>
 
 
-          <div class="field button-field">
+          <div class="campo botao-area">
 
             <button
               type="submit"
-              class="btn"
+              class="btn-principal"
             >
-              🔎 Buscar partidas
+              🔍 Buscar partidas
             </button>
 
           </div>
@@ -106,17 +110,40 @@
     </section>
 
 
-
-    <!-- PARTIDAS -->
+    <!-- LISTA DE PARTIDAS -->
     <section class="card">
 
-      <h2>⚽ Partidas encontradas</h2>
+      <div class="section-title">
 
-      <div id="matches">
+        <h2>⚽ Partidas</h2>
+
+        <span id="status">
+          Selecione a data e busque as partidas
+        </span>
+
+      </div>
+
+
+      <div
+        id="matches"
+        class="matches"
+      >
 
         <div class="empty">
-          Escolha a data e o campeonato
-          para buscar partidas.
+
+          <div class="empty-icon">
+            ⚽
+          </div>
+
+          <h3>
+            Nenhuma partida carregada
+          </h3>
+
+          <p>
+            Escolha uma data e um campeonato para consultar
+            as partidas disponíveis.
+          </p>
+
         </div>
 
       </div>
@@ -124,56 +151,191 @@
     </section>
 
 
+    <!-- ÁREA DE ANÁLISE -->
+    <section
+      id="analysis"
+      class="card analysis-section"
+    >
 
-    <!-- ANÁLISE -->
-    <section class="card">
+      <div class="empty">
 
-      <h2>📊 Análise</h2>
-
-      <div id="analysis">
-
-        <div class="empty">
-          Clique em
-          <strong>"Analisar partida"</strong>
-          para ver as estatísticas.
+        <div class="empty-icon">
+          📊
         </div>
+
+        <h3>
+          Análise da partida
+        </h3>
+
+        <p>
+          Clique em "Analisar partida" para visualizar
+          probabilidades e odds.
+        </p>
 
       </div>
 
     </section>
 
+
+    <!-- CALCULADORA -->
+    <section class="card">
+
+      <h2>🧮 Calculadora de valor</h2>
+
+      <p class="descricao">
+        Calcule o valor esperado (EV) de uma aposta
+        utilizando sua probabilidade estimada e a odd.
+      </p>
+
+
+      <div class="calculator">
+
+        <div class="campo">
+
+          <label for="probabilidade">
+            Probabilidade (%)
+          </label>
+
+          <input
+            type="number"
+            id="probabilidade"
+            placeholder="Ex.: 55"
+            min="0"
+            max="100"
+            step="0.1"
+          >
+
+        </div>
+
+
+        <div class="campo">
+
+          <label for="odd">
+            Odd
+          </label>
+
+          <input
+            type="number"
+            id="odd"
+            placeholder="Ex.: 2.00"
+            min="1"
+            step="0.01"
+          >
+
+        </div>
+
+
+        <div class="campo botao-area">
+
+          <button
+            type="button"
+            class="btn-principal"
+            onclick="calcularValor()"
+          >
+            🧮 Calcular
+          </button>
+
+        </div>
+
+      </div>
+
+
+      <div
+        id="resultado-calculo"
+        class="resultado-calculo"
+      ></div>
+
+    </section>
+
+
+    <!-- BANCA -->
+    <section class="card">
+
+      <h2>💰 Controle da banca</h2>
+
+      <div class="banca-grid">
+
+        <div class="banca-item">
+
+          <span>
+            Banca inicial
+          </span>
+
+          <strong>
+            R$ 40,00
+          </strong>
+
+        </div>
+
+
+        <div class="banca-item">
+
+          <span>
+            Banca atual
+          </span>
+
+          <strong>
+            R$ 105,00
+          </strong>
+
+        </div>
+
+
+        <div class="banca-item">
+
+          <span>
+            Lucro
+          </span>
+
+          <strong>
+            R$ 65,00
+          </strong>
+
+        </div>
+
+
+        <div class="banca-item">
+
+          <span>
+            Crescimento
+          </span>
+
+          <strong>
+            162,50%
+          </strong>
+
+        </div>
+
+      </div>
+
+    </section>
 
 
     <!-- AVISO -->
-    <section class="card notice">
+    <section class="aviso">
 
-      <h3>ℹ️ Sobre as análises</h3>
-
-      <p>
-        As probabilidades apresentadas são estimativas
-        baseadas nos dados disponíveis pela fonte
-        estatística utilizada pelo sistema.
-      </p>
+      <strong>
+        ⚠️ Importante
+      </strong>
 
       <p>
-        Nenhuma análise garante resultado ou lucro.
-        Utilize as informações apenas como apoio à
-        sua própria decisão.
+        As probabilidades e análises são estimativas
+        estatísticas e não garantem resultados.
+        Aposte com responsabilidade.
       </p>
 
     </section>
-
 
   </main>
 
 
-
+  <!-- RODAPÉ -->
   <footer>
 
     <div class="container">
 
       <p>
-        ApostaSmart © 2026
+        © 2026 ApostaSmart
       </p>
 
       <p>
@@ -185,10 +347,189 @@
   </footer>
 
 
-
   <!-- JAVASCRIPT -->
   <script src="/app.js"></script>
 
-</body>
+  <script>
 
+    // Define a data atual automaticamente
+    const campoData = document.getElementById("date");
+
+    if (campoData) {
+
+      const hoje = new Date();
+
+      const ano = hoje.getFullYear();
+
+      const mes = String(
+        hoje.getMonth() + 1
+      ).padStart(2, "0");
+
+      const dia = String(
+        hoje.getDate()
+      ).padStart(2, "0");
+
+      campoData.value =
+        `${ano}-${mes}-${dia}`;
+    }
+
+
+    // Calculadora de valor esperado
+    function calcularValor() {
+
+      const probabilidade =
+        Number(
+          document.getElementById(
+            "probabilidade"
+          ).value
+        );
+
+      const odd =
+        Number(
+          document.getElementById(
+            "odd"
+          ).value
+        );
+
+      const resultado =
+        document.getElementById(
+          "resultado-calculo"
+        );
+
+
+      if (
+        !probabilidade ||
+        !odd ||
+        probabilidade <= 0 ||
+        probabilidade > 100 ||
+        odd <= 1
+      ) {
+
+        resultado.innerHTML = `
+          <div class="error">
+            Informe uma probabilidade entre 0 e 100
+            e uma odd maior que 1.
+          </div>
+        `;
+
+        return;
+      }
+
+
+      const prob =
+        probabilidade / 100;
+
+
+      const valorEsperado =
+        ((prob * odd) - 1) * 100;
+
+
+      const oddJusta =
+        1 / prob;
+
+
+      let classificacao = "";
+
+
+      if (valorEsperado > 0) {
+
+        classificacao = `
+          <span class="positivo">
+            📈 Valor esperado positivo
+          </span>
+        `;
+
+      } else if (valorEsperado < 0) {
+
+        classificacao = `
+          <span class="negativo">
+            📉 Valor esperado negativo
+          </span>
+        `;
+
+      } else {
+
+        classificacao = `
+          <span>
+            ⚖️ Valor esperado neutro
+          </span>
+        `;
+
+      }
+
+
+      resultado.innerHTML = `
+
+        <div class="calculo-box">
+
+          <h3>
+            Resultado
+          </h3>
+
+          <div class="calculo-linha">
+
+            <span>
+              Probabilidade informada
+            </span>
+
+            <strong>
+              ${probabilidade.toFixed(2)}%
+            </strong>
+
+          </div>
+
+
+          <div class="calculo-linha">
+
+            <span>
+              Odd informada
+            </span>
+
+            <strong>
+              ${odd.toFixed(2)}
+            </strong>
+
+          </div>
+
+
+          <div class="calculo-linha">
+
+            <span>
+              Odd justa
+            </span>
+
+            <strong>
+              ${oddJusta.toFixed(2)}
+            </strong>
+
+          </div>
+
+
+          <div class="calculo-linha destaque">
+
+            <span>
+              Valor esperado
+            </span>
+
+            <strong>
+              ${valorEsperado.toFixed(2)}%
+            </strong>
+
+          </div>
+
+
+          <div class="classificacao">
+
+            ${classificacao}
+
+          </div>
+
+        </div>
+
+      `;
+    }
+
+  </script>
+
+</body>
 </html>
